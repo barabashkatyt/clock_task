@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Clock from "./components/Clock";
+import { Navbar } from "./components/Navbar";
+// import Time from "./components/Time";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      time: new Date().toLocaleString(),
+    };
+  }
+  componentDidMount() {
+    this.intervalID = setInterval(() => this.ticktock(), 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.intervalID);
+  }
+  ticktock() {
+    this.setState({
+      time: new Date().toLocaleString(),
+    });
+  }
+  render() {
+    return (
+      <BrowserRouter>
+        <Navbar />
+        <div className="container pt-4">
+          <Switch>
+            <Route
+              path="/one"
+              component={() => <Clock time={this.state.time} />}
+            />
+            <Route
+              path="/two"
+              component={() => <Clock time={this.state.time} />}
+            />
+            {/* <Route path="/" component={Time} /> */}
+            <Route
+              path="/"
+              component={() => <Clock time={this.state.time} />}
+            />
+          </Switch>
+        </div>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
