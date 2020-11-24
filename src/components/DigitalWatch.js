@@ -18,7 +18,7 @@ class DigitalWatch extends Component {
         hour: "#fff",
       },
       seconds: time.seconds,
-      minutes: time.minutes,
+      minutes: minutes,
       hours: time.hours,
     };
     return (
