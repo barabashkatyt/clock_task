@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Clock from "./Clock";
+import DigitalWatch from "./DigitalWatch";
 
 class Time extends Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class Time extends Component {
   render() {
     return (
       <p>
-        <Clock time={this.state.time} />
+        <DigitalWatch time={this.state.time} />
       </p>
     );
   }

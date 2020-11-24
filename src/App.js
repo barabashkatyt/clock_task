@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import Clock from "./components/Clock";
+import DigitalWatch from "./components/DigitalWatch";
 import { Navbar } from "./components/Navbar";
 // import Time from "./components/Time";
 
@@ -8,7 +8,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      time: new Date().toLocaleString(),
+      time: {},
     };
   }
   componentDidMount() {
@@ -18,10 +18,21 @@ class App extends Component {
     clearInterval(this.intervalID);
   }
   ticktock() {
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    // let timeNow = `${hours}:${minutes}:${seconds}`;
+    let timeObj = {
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    };
     this.setState({
-      time: new Date().toLocaleString(),
+      time: timeObj,
     });
   }
+
   render() {
     return (
       <BrowserRouter>
@@ -30,16 +41,31 @@ class App extends Component {
           <Switch>
             <Route
               path="/one"
-              component={() => <Clock time={this.state.time} />}
+              component={() => (
+                <DigitalWatch
+                  time={this.state.time}
+                  minutes={this.state.time.minutes + 1}
+                />
+              )}
             />
             <Route
               path="/two"
-              component={() => <Clock time={this.state.time} />}
-            />
+              component={() => (
+                <DigitalWatch
+                  time={this.state.time}
+                  minutes={this.state.time.minutes + 2}
+                />
+              )}
+            />{" "}
             {/* <Route path="/" component={Time} /> */}
             <Route
               path="/"
-              component={() => <Clock time={this.state.time} />}
+              component={() => (
+                <DigitalWatch
+                  time={this.state.time}
+                  minutes={this.state.time.minutes}
+                />
+              )}
             />
           </Switch>
         </div>
